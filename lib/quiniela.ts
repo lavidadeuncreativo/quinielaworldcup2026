@@ -1,0 +1,80 @@
+export type Participant = { id:string; name:string; short:string; color:string; basePoints:number; baseExact:number };
+export type Slot = { type:"team"; team:string } | { type:"winner"|"loser"; matchId:string };
+export type MatchResult = { home:number; away:number; qualified?:"home"|"away"|null; final?:boolean };
+export type Match = { id:string; stage:"r32"|"r16"|"qf"|"sf"|"third"|"final"; date:string; time:string; venue:string; home:Slot; away:Slot; excluded?:boolean; fixedWinner?:string; baseResult?:MatchResult };
+export type Prediction = [number,number,("home"|"away")?] | null;
+export type ResultMap = Record<string,MatchResult>;
+export type Standing = Participant & { points:number; exact:number; recent:number; rank:number };
+
+const team=(name:string):Slot=>({type:"team",team:name});
+const winner=(id:number):Slot=>({type:"winner",matchId:String(id)});
+const loser=(id:number):Slot=>({type:"loser",matchId:String(id)});
+
+export const participants:Participant[]=[
+{id:"israel",name:"Israel Cabrera",short:"IC",basePoints:17,baseExact:4,color:"#b9c8ff"},
+{id:"isra",name:"Isra chico",short:"IS",basePoints:12,baseExact:2,color:"#c9ffd5"},
+{id:"alfre",name:"Tío Alfre",short:"TA",basePoints:12,baseExact:2,color:"#ffe0c7"},
+{id:"liz",name:"Liz Flores",short:"LF",basePoints:11,baseExact:2,color:"#ffd4ea"},
+{id:"rebeca",name:"Rebeca Granados",short:"RG",basePoints:10,baseExact:1,color:"#e1d7ff"},
+{id:"alfredito",name:"Alfredito",short:"AL",basePoints:9,baseExact:1,color:"#fff0b8"},
+{id:"nuria",name:"Nuria",short:"NU",basePoints:8,baseExact:1,color:"#c8f3ff"},
+{id:"pedro",name:"Pedro",short:"PE",basePoints:7,baseExact:1,color:"#dbe8dd"},
+{id:"rebe",name:"Rebe mamá",short:"RM",basePoints:7,baseExact:0,color:"#ffd8d1"}
+];
+
+export const stageLabels:Record<Match["stage"],string>={r32:"Ronda de 32",r16:"Octavos de final",qf:"Cuartos de final",sf:"Semifinales",third:"Tercer lugar",final:"Final"};
+export const flags:Record<string,string>={Sudáfrica:"🇿🇦",Canadá:"🇨🇦",Alemania:"🇩🇪",Paraguay:"🇵🇾","Países Bajos":"🇳🇱",Marruecos:"🇲🇦",Brasil:"🇧🇷",Japón:"🇯🇵",Francia:"🇫🇷",Suecia:"🇸🇪","Costa de Marfil":"🇨🇮",Noruega:"🇳🇴",México:"🇲🇽",Ecuador:"🇪🇨",Inglaterra:"🏴","RD Congo":"🇨🇩","Estados Unidos":"🇺🇸","Bosnia y Herzegovina":"🇧🇦",Bélgica:"🇧🇪",Senegal:"🇸🇳",Portugal:"🇵🇹",Croacia:"🇭🇷",España:"🇪🇸",Austria:"🇦🇹",Suiza:"🇨🇭",Argelia:"🇩🇿",Argentina:"🇦🇷","Cabo Verde":"🇨🇻",Colombia:"🇨🇴",Ghana:"🇬🇭",Australia:"🇦🇺",Egipto:"🇪🇬","Por definir":"◌"};
+
+export const matches:Match[]=[
+{id:"73",stage:"r32",date:"28 JUN",time:"13:00",venue:"Los Ángeles",home:team("Sudáfrica"),away:team("Canadá"),excluded:true,fixedWinner:"Canadá"},
+{id:"74",stage:"r32",date:"29 JUN",time:"12:00",venue:"Boston",home:team("Alemania"),away:team("Paraguay"),baseResult:{home:1,away:1,qualified:"away",final:true}},
+{id:"75",stage:"r32",date:"29 JUN",time:"15:00",venue:"Monterrey",home:team("Países Bajos"),away:team("Marruecos"),baseResult:{home:1,away:1,qualified:"away",final:true}},
+{id:"76",stage:"r32",date:"29 JUN",time:"21:00",venue:"Houston",home:team("Brasil"),away:team("Japón"),baseResult:{home:2,away:1,final:true}},
+{id:"77",stage:"r32",date:"30 JUN",time:"16:30",venue:"Nueva York/Nueva Jersey",home:team("Francia"),away:team("Suecia"),baseResult:{home:3,away:0,final:true}},
+{id:"78",stage:"r32",date:"30 JUN",time:"13:00",venue:"Dallas",home:team("Costa de Marfil"),away:team("Noruega"),baseResult:{home:1,away:2,final:true}},
+{id:"79",stage:"r32",date:"30 JUN",time:"21:00",venue:"Ciudad de México",home:team("México"),away:team("Ecuador"),baseResult:{home:2,away:0,final:true}},
+{id:"80",stage:"r32",date:"1 JUL",time:"12:00",venue:"Atlanta",home:team("Inglaterra"),away:team("RD Congo"),baseResult:{home:2,away:1,final:true}},
+{id:"81",stage:"r32",date:"1 JUL",time:"20:00",venue:"Nueva York/Nueva Jersey",home:team("Estados Unidos"),away:team("Bosnia y Herzegovina"),baseResult:{home:2,away:0,final:true}},
+{id:"82",stage:"r32",date:"1 JUL",time:"16:00",venue:"Seattle",home:team("Bélgica"),away:team("Senegal"),baseResult:{home:2,away:2,qualified:"home",final:true}},
+{id:"83",stage:"r32",date:"2 JUL",time:"19:00",venue:"Toronto",home:team("Portugal"),away:team("Croacia")},
+{id:"84",stage:"r32",date:"2 JUL",time:"17:00",venue:"Los Ángeles",home:team("España"),away:team("Austria"),baseResult:{home:3,away:0,final:true}},
+{id:"85",stage:"r32",date:"2 JUL",time:"23:00",venue:"San Francisco",home:team("Suiza"),away:team("Argelia")},
+{id:"86",stage:"r32",date:"3 JUL",time:"18:00",venue:"Miami",home:team("Argentina"),away:team("Cabo Verde")},
+{id:"87",stage:"r32",date:"3 JUL",time:"21:30",venue:"Kansas City",home:team("Colombia"),away:team("Ghana")},
+{id:"88",stage:"r32",date:"3 JUL",time:"14:00",venue:"Dallas",home:team("Australia"),away:team("Egipto")},
+{id:"89",stage:"r16",date:"4 JUL",time:"17:00",venue:"Filadelfia",home:winner(74),away:winner(77)},
+{id:"90",stage:"r16",date:"4 JUL",time:"13:00",venue:"Houston",home:winner(73),away:winner(75)},
+{id:"91",stage:"r16",date:"5 JUL",time:"16:00",venue:"Nueva York/Nueva Jersey",home:winner(76),away:winner(78)},
+{id:"92",stage:"r16",date:"5 JUL",time:"20:00",venue:"Ciudad de México",home:winner(79),away:winner(80)},
+{id:"93",stage:"r16",date:"6 JUL",time:"15:00",venue:"Dallas",home:winner(83),away:winner(84)},
+{id:"94",stage:"r16",date:"6 JUL",time:"20:00",venue:"Seattle",home:winner(81),away:winner(82)},
+{id:"95",stage:"r16",date:"7 JUL",time:"12:00",venue:"Atlanta",home:winner(86),away:winner(88)},
+{id:"96",stage:"r16",date:"7 JUL",time:"16:00",venue:"Vancouver",home:winner(85),away:winner(87)},
+{id:"97",stage:"qf",date:"9 JUL",time:"16:00",venue:"Boston",home:winner(89),away:winner(90)},
+{id:"98",stage:"qf",date:"10 JUL",time:"15:00",venue:"Los Ángeles",home:winner(93),away:winner(94)},
+{id:"99",stage:"qf",date:"11 JUL",time:"17:00",venue:"Miami",home:winner(91),away:winner(92)},
+{id:"100",stage:"qf",date:"11 JUL",time:"21:00",venue:"Kansas City",home:winner(95),away:winner(96)},
+{id:"101",stage:"sf",date:"14 JUL",time:"15:00",venue:"Dallas",home:winner(97),away:winner(98)},
+{id:"102",stage:"sf",date:"15 JUL",time:"15:00",venue:"Atlanta",home:winner(99),away:winner(100)},
+{id:"103",stage:"third",date:"18 JUL",time:"17:00",venue:"Miami",home:loser(101),away:loser(102)},
+{id:"104",stage:"final",date:"19 JUL",time:"15:00",venue:"Nueva York/Nueva Jersey",home:winner(101),away:winner(102)}
+];
+
+const predictions:Record<string,Record<string,Prediction>>={
+"83":{israel:[2,1],isra:[1,1],alfre:[1,2],liz:[2,1],rebeca:[1,0],alfredito:[2,1],nuria:[2,1],pedro:[2,1],rebe:[3,2]},
+"85":{israel:[1,0],isra:[1,0],alfre:[1,1,"away"],liz:[1,0],rebeca:[2,0],alfredito:[1,0],nuria:[1,0],pedro:[3,1],rebe:[2,1]},
+"86":{israel:[3,0],isra:[3,0],alfre:null,liz:[3,0],rebeca:[3,0],alfredito:null,nuria:null,pedro:[3,1],rebe:[1,0]},
+"87":{israel:[2,1],isra:[2,1],alfre:null,liz:[2,1],rebeca:[2,1],alfredito:null,nuria:null,pedro:[1,2],rebe:[2,3]},
+"88":{israel:[1,1],isra:[1,1],alfre:null,liz:[1,1],rebeca:[1,2],alfredito:null,nuria:null,pedro:[0,2],rebe:[1,2]}
+};
+
+export function getResult(match:Match,results:ResultMap={}){return results[match.id]??match.baseResult??null}
+const scoreSide=(h:number,a:number):"home"|"away"|null=>h===a?null:h>a?"home":"away";
+export function winningSide(match:Match,results:ResultMap={}):"home"|"away"|null{if(match.excluded)return match.fixedWinner===resolveTeam(match.home,results)?"home":"away";const r=getResult(match,results);if(!r)return null;return r.home===r.away?(r.qualified??null):scoreSide(r.home,r.away)}
+export function resolveTeam(slot:Slot,results:ResultMap={}):string{if(slot.type==="team")return slot.team;const source=matches.find(m=>m.id===slot.matchId);if(!source)return "Por definir";const won=winningSide(source,results);if(!won)return "Por definir";const side=slot.type==="winner"?won:won==="home"?"away":"home";return resolveTeam(source[side],results)}
+export function matchTeams(match:Match,results:ResultMap={}){return{home:resolveTeam(match.home,results),away:resolveTeam(match.away,results)}}
+export function scorePrediction(pred:Prediction,result:MatchResult){if(!pred)return{points:0,exact:0};const[ph,pa,pq]=pred;const actual=scoreSide(result.home,result.away),expected=scoreSide(ph,pa);if(ph===result.home&&pa===result.away)return{points:3+(actual===null&&pq===result.qualified?1:0),exact:1};if(actual!==null)return{points:expected===actual||pq===actual?1:0,exact:0};if(pq&&pq===result.qualified)return{points:1,exact:0};if(expected&&expected===result.qualified)return{points:1,exact:0};return{points:0,exact:0}}
+export function buildStandings(results:ResultMap={}):Standing[]{const table=participants.map(p=>{let points=p.basePoints,exact=p.baseExact,recent=0;matches.forEach(m=>{if(m.excluded||m.baseResult)return;const r=getResult(m,results);if(!r)return;const score=scorePrediction(predictions[m.id]?.[p.id]??null,r);points+=score.points;exact+=score.exact;recent+=score.points});return{...p,points,exact,recent,rank:0}}).sort((a,b)=>b.points-a.points||b.exact-a.exact||a.name.localeCompare(b.name,"es"));let last="",rank=0;table.forEach((p,i)=>{const key=`${p.points}-${p.exact}`;if(key!==last)rank=i+1;p.rank=rank;last=key});return table}
+export const completedMatches=(results:ResultMap={})=>matches.filter(m=>!m.excluded&&Boolean(getResult(m,results)));
+export const latestCompletedMatch=(results:ResultMap={})=>completedMatches(results).at(-1)??null;
+export const nextPlayableMatch=(results:ResultMap={})=>matches.find(m=>{if(m.excluded||getResult(m,results))return false;const t=matchTeams(m,results);return t.home!=="Por definir"&&t.away!=="Por definir"})??null;
