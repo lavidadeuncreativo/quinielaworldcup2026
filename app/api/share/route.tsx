@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { buildStandings } from "@/lib/quiniela";
+import { buildStandings, type ResultMap } from "@/lib/quiniela";
 
 export const runtime = "edge";
 
@@ -13,8 +13,14 @@ const tone = (rank: number) =>
         ? { bg: "linear-gradient(180deg,#f2c49c,#fff0e3)", border: "#e6bc93" }
         : { bg: "#ffffff", border: "#ebefed" };
 
-export async function GET() {
-  const table = buildStandings({});
+export async function GET(request:Request) {
+  let results:ResultMap = {};
+  try{
+    const response = await fetch(new URL("/api/results",request.url),{cache:"no-store"});
+    const data = await response.json() as {results?:ResultMap};
+    results = data.results ?? {};
+  }catch{}
+  const table = buildStandings(results);
   return new ImageResponse(
     <div style={{ width: "1080px", height: "1350px", display: "flex", flexDirection: "column", padding: "68px", color: "white", background: "linear-gradient(145deg,#07131f,#0d2a3d)", fontFamily: "sans-serif" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -26,7 +32,7 @@ export async function GET() {
       </div>
 
       <div style={{ marginTop: "62px", fontSize: "82px", lineHeight: 0.96, letterSpacing: "-5px", fontWeight: 900 }}>Mira cómo va la tabla.</div>
-      <div style={{ marginTop: "18px", fontSize: "26px", color: "#b7c9d4" }}>Clasificación general después del último resultado contabilizado.</div>
+      <div style={{ marginTop: "18px", fontSize: "26px", color: "#b7c9d4" }}>Clasificación general con los últimos resultados disponibles.</div>
 
       <div style={{ marginTop: "44px", display: "flex", gap: "16px" }}>
         {table.slice(0, 3).map((p) => {
@@ -57,7 +63,7 @@ export async function GET() {
 
       <div style={{ marginTop: "auto", display: "flex", justifyContent: "space-between", color: "#93a9b8", fontSize: "20px", fontWeight: 700 }}>
         <span>$1,800 MXN · 9 participantes</span>
-        <span>quiniela familiar</span>
+        <span>Actualización automática</span>
       </div>
     </div>,
     { width: 1080, height: 1350 }
