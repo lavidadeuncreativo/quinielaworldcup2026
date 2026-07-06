@@ -22,7 +22,7 @@ function fallbackDate(match:Match){const[dayText,monthText]=match.date.split(" "
 function timeInfo(match:Match,fixtures:FixtureMap){const date=fixtures[match.id]?.dateUtc?new Date(fixtures[match.id].dateUtc as string):fallbackDate(match);return{cdmx:fmt(date,"America/Mexico_City"),dk:fmt(date,"Europe/Copenhagen"),venue:fixtures[match.id]?.venue||match.venue}}
 function TimeBlock({match,fixtures}:{match:Match;fixtures:FixtureMap}){const t=timeInfo(match,fixtures);return <span className="time-block"><b>CDMX {t.cdmx}</b><b>Dinamarca {t.dk}</b></span>}
 function baseReason(value:BaseValue|undefined,teams:{home:string;away:string}){if(value==="NC")return"NC: pronóstico tardío o no contado en el corte maestro.";if(value===3)return`Marcador exacto registrado en el corte maestro para ${teams.home} vs ${teams.away}.`;if(value===1)return`Acierto de 1 punto registrado en el corte maestro para ${teams.home} vs ${teams.away}.`;return`No sumó puntos en el corte maestro para ${teams.home} vs ${teams.away}.`}
-function Face({id,short,color,className}:{id:string;short:string;color:string;className:string}){const photo=participantPhotos[id];return <div className={`${className} ${photo?"face-photo":""}`} style={photo?{backgroundImage:`url(${photo})`}:{background:color}}><span>{short}</span></div>}
+function Face({id,short,color,className}:{id:string;short:string;color:string;className:string}){const photo=participantPhotos[id];return <div className={`${className} ${photo?"face-photo":""}`} style={photo?{backgroundImage:`url(${photo})`,backgroundColor:color}:{background:color}}><span>{short}</span></div>}
 
 export default function Home(){
  const shareCardRef=useRef<HTMLDivElement|null>(null);
