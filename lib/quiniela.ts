@@ -10,6 +10,7 @@ export type PointAward = Participant & { awarded:number; reason:string; predicti
 const team=(name:string):Slot=>({type:"team",team:name});
 const winner=(id:number):Slot=>({type:"winner",matchId:String(id)});
 const loser=(id:number):Slot=>({type:"loser",matchId:String(id)});
+const englandFlag="\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}";
 
 export const participants:Participant[]=[
 {id:"israel",name:"Israel Cabrera",short:"IC",basePoints:17,baseExact:4,color:"#b9c8ff"},
@@ -24,7 +25,7 @@ export const participants:Participant[]=[
 ];
 
 export const stageLabels:Record<Match["stage"],string>={r32:"Ronda de 32",r16:"Octavos de final",qf:"Cuartos de final",sf:"Semifinales",third:"Tercer lugar",final:"Final"};
-export const flags:Record<string,string>={Sudáfrica:"🇿🇦",Canadá:"🇨🇦",Alemania:"🇩🇪",Paraguay:"🇵🇾","Países Bajos":"🇳🇱",Marruecos:"🇲🇦",Brasil:"🇧🇷",Japón:"🇯🇵",Francia:"🇫🇷",Suecia:"🇸🇪","Costa de Marfil":"🇨🇮",Noruega:"🇳🇴",México:"🇲🇽",Ecuador:"🇪🇨",Inglaterra:"🏴","RD Congo":"🇨🇩","Estados Unidos":"🇺🇸","Bosnia y Herzegovina":"🇧🇦",Bélgica:"🇧🇪",Senegal:"🇸🇳",Portugal:"🇵🇹",Croacia:"🇭🇷",España:"🇪🇸",Austria:"🇦🇹",Suiza:"🇨🇭",Argelia:"🇩🇿",Argentina:"🇦🇷","Cabo Verde":"🇨🇻",Colombia:"🇨🇴",Ghana:"🇬🇭",Australia:"🇦🇺",Egipto:"🇪🇬","Por definir":"◌"};
+export const flags:Record<string,string>={Sudáfrica:"🇿🇦",Canadá:"🇨🇦",Alemania:"🇩🇪",Paraguay:"🇵🇾","Países Bajos":"🇳🇱",Marruecos:"🇲🇦",Brasil:"🇧🇷",Japón:"🇯🇵",Francia:"🇫🇷",Suecia:"🇸🇪","Costa de Marfil":"🇨🇮",Noruega:"🇳🇴",México:"🇲🇽",Ecuador:"🇪🇨",Inglaterra:englandFlag,"RD Congo":"🇨🇩","Estados Unidos":"🇺🇸","Bosnia y Herzegovina":"🇧🇦",Bélgica:"🇧🇪",Senegal:"🇸🇳",Portugal:"🇵🇹",Croacia:"🇭🇷",España:"🇪🇸",Austria:"🇦🇹",Suiza:"🇨🇭",Argelia:"🇩🇿",Argentina:"🇦🇷","Cabo Verde":"🇨🇻",Colombia:"🇨🇴",Ghana:"🇬🇭",Australia:"🇦🇺",Egipto:"🇪🇬","Por definir":"◌"};
 
 export const matches:Match[]=[
 {id:"73",stage:"r32",date:"28 JUN",time:"13:00",venue:"Los Ángeles",home:team("Sudáfrica"),away:team("Canadá"),excluded:true,fixedWinner:"Canadá"},
