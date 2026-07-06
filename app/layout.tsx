@@ -3,6 +3,7 @@ import "./globals.css";
 import "./overrides.css";
 import "./photo-overrides.css";
 import "./live-overrides.css";
+import "./points-overrides.css";
 
 export const metadata: Metadata = {
   title: "Quiniela Familiar 2026",
