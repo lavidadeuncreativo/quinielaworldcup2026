@@ -1,4 +1,5 @@
 import type { Standing } from "@/lib/quiniela";
+import { participantPhotos } from "@/lib/participantPhotos";
 
 type Props = {
   table: Standing[];
@@ -15,6 +16,11 @@ const today = () => new Intl.DateTimeFormat("es-MX", {
   minute: "2-digit"
 }).format(new Date());
 
+function SharePhoto({player,className}:{player:Standing;className:string}){
+  const photo = participantPhotos[player.id];
+  return <div className={`${className} ${photo?"face-photo":""}`} style={photo?{backgroundImage:`url(${photo})`}:{background:player.color}}><span>{player.short}</span></div>
+}
+
 export default function RankingShareCard({table,source,completed,generatedAt}:Props){
   const top = table.slice(0,3);
   const rest = table.slice(3);
@@ -28,7 +34,8 @@ export default function RankingShareCard({table,source,completed,generatedAt}:Pr
     <div className="share-podium">
       {top.map((player,index)=><article key={player.id} className={`share-podium-card rank-${index+1}`}>
         <i>{index+1}</i>
-        <div className="share-avatar" style={{background:player.color}}>{player.short}</div>
+        <strong className="medal-label">{index===0?"Oro - 1er lugar":index===1?"Plata - 2do lugar":"Bronce - 3er lugar"}</strong>
+        <SharePhoto player={player} className="share-avatar" />
         <strong>{player.name}</strong>
         <b>{player.points}<span> pts</span></b>
         <small>{player.exact} exactos</small>
@@ -37,7 +44,7 @@ export default function RankingShareCard({table,source,completed,generatedAt}:Pr
     <div className="share-list">
       {rest.map((player,index)=><article key={player.id}>
         <i>{index+4}</i>
-        <div className="share-mini" style={{background:player.color}}>{player.short}</div>
+        <SharePhoto player={player} className="share-mini" />
         <strong>{player.name}</strong>
         <b>{player.points}<span> pts</span></b>
       </article>)}
