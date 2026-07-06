@@ -18,7 +18,7 @@ const today = () => new Intl.DateTimeFormat("es-MX", {
 
 function SharePhoto({player,className}:{player:Standing;className:string}){
   const photo = participantPhotos[player.id];
-  return <div className={`${className} ${photo?"face-photo":""}`} style={photo?{backgroundImage:`url(${photo})`}:{background:player.color}}><span>{player.short}</span></div>
+  return <div className={`${className} ${photo?"face-photo":""}`} style={photo?{backgroundImage:`url(${photo})`,backgroundColor:player.color}:{background:player.color}}><span>{player.short}</span></div>
 }
 
 export default function RankingShareCard({table,source,completed,generatedAt}:Props){
