@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-function fallbackRecap(data:Record<string,unknown>){
+type Loose = Record<string, unknown>;
+
+function fallbackRecap(data:Loose){
+ const participant = data.participant as {name?:string;points?:number;rank?:number;exact?:number}|undefined;
+ if(participant?.name) return `${participant.name} lleva ${participant.points ?? "?"} puntos y ${participant.exact ?? "?"} exactos. Su desglose muestra qué partidos le dieron ventaja y en cuáles no sumó; el siguiente resultado puede mover su posición.`;
  const standings = Array.isArray(data.standings) ? data.standings as Array<{name?:string;points?:number;rank?:number}> : [];
  const leader = standings[0];
  if(leader?.name) return `${leader.name} va liderando con ${leader.points ?? "?"} puntos. La tabla ya está actualizada con el último resultado disponible; revisa el próximo partido porque puede mover la pelea por el podio.`;
@@ -22,13 +26,14 @@ export async function POST(request:NextRequest){
  if(!key)return NextResponse.json({recap:fallbackRecap(data)});
  const input=[
   "Genera un resumen breve, útil y emocionante para una quiniela familiar del Mundial 2026.",
-  "Escribe en español de México, máximo 70 palabras, sin markdown.",
-  "Incluye: líder actual, último resultado si viene en los datos, próximo partido si viene en los datos y por qué importa para la tabla.",
+  "Escribe en español de México, máximo 75 palabras, sin markdown.",
+  "Si el JSON trae participant, enfócate en ese participante: total de puntos, posición, exactos, partidos donde sumó y dónde perdió oportunidad.",
+  "Si el JSON trae standings, resume la tabla general: líder actual, último resultado, próximo partido y por qué importa.",
   "No inventes resultados, horarios ni probabilidades. Usa solo los datos JSON.",
   JSON.stringify(data)
  ].join("\n");
  try{
-  const response=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{Authorization:`Bearer ${key}`,"Content-Type":"application/json"},body:JSON.stringify({model,input,max_output_tokens:220})});
+  const response=await fetch("https://api.openai.com/v1/responses",{method:"POST",headers:{Authorization:`Bearer ${key}`,"Content-Type":"application/json"},body:JSON.stringify({model,input,max_output_tokens:240})});
   if(!response.ok)throw new Error(`OpenAI ${response.status}`);
   const body=await response.json();
   const recap=extractText(body)||fallbackRecap(data);
