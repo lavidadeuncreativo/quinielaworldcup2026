@@ -48,7 +48,7 @@ export const matches:Match[]=[
 {id:"90",stage:"r16",date:"4 JUL",time:"13:00",venue:"Houston",home:winner(73),away:winner(75),baseResult:{home:0,away:3,final:true,completedAt:"2026-07-04T19:11:00Z"}},
 {id:"91",stage:"r16",date:"5 JUL",time:"16:00",venue:"Nueva York/Nueva Jersey",home:winner(76),away:winner(78),baseResult:{home:1,away:2,final:true,completedAt:"2026-07-05T22:00:00Z"}},
 {id:"92",stage:"r16",date:"5 JUL",time:"20:00",venue:"Ciudad de México",home:winner(79),away:winner(80),baseResult:{home:2,away:3,final:true,completedAt:"2026-07-06T04:00:00Z"}},
-{id:"93",stage:"r16",date:"6 JUL",time:"13:00",venue:"Dallas",home:winner(83),away:winner(84)},
+{id:"93",stage:"r16",date:"6 JUL",time:"13:00",venue:"Dallas",home:winner(83),away:winner(84),baseResult:{home:0,away:1,final:true,completedAt:"2026-07-06T21:11:20Z"}},
 {id:"94",stage:"r16",date:"6 JUL",time:"18:00",venue:"Seattle",home:winner(81),away:winner(82)},
 {id:"95",stage:"r16",date:"7 JUL",time:"10:00",venue:"Atlanta",home:winner(86),away:winner(88)},
 {id:"96",stage:"r16",date:"7 JUL",time:"14:00",venue:"Vancouver",home:winner(85),away:winner(87)},
