@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./overrides.css";
 import "./photo-overrides.css";
+import "./live-overrides.css";
 
 export const metadata: Metadata = {
   title: "Quiniela Familiar 2026",
