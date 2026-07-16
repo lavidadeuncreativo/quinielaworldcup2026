@@ -56,8 +56,8 @@ export const matches:Match[]=[
 {id:"98",stage:"qf",date:"10 JUL",time:"13:00",venue:"Los Ángeles",home:winner(93),away:winner(94),baseResult:{home:2,away:1,final:true,completedAt:"2026-07-10T21:00:00Z"}},
 {id:"99",stage:"qf",date:"11 JUL",time:"15:00",venue:"Miami",home:winner(91),away:winner(92),baseResult:{home:1,away:2,final:true,completedAt:"2026-07-11T23:45:00Z"}},
 {id:"100",stage:"qf",date:"11 JUL",time:"15:00",venue:"Kansas City",home:winner(95),away:winner(96),baseResult:{home:3,away:1,final:true,completedAt:"2026-07-12T03:00:00Z"}},
-{id:"101",stage:"sf",date:"14 JUL",time:"15:00",venue:"Dallas",home:winner(97),away:winner(98)},
-{id:"102",stage:"sf",date:"15 JUL",time:"15:00",venue:"Atlanta",home:winner(99),away:winner(100)},
+{id:"101",stage:"sf",date:"14 JUL",time:"15:00",venue:"Dallas",home:winner(97),away:winner(98),baseResult:{home:0,away:2,final:true,completedAt:"2026-07-14T23:00:00Z"}},
+{id:"102",stage:"sf",date:"15 JUL",time:"15:00",venue:"Atlanta",home:winner(99),away:winner(100),baseResult:{home:1,away:2,final:true,completedAt:"2026-07-15T23:00:00Z"}},
 {id:"103",stage:"third",date:"18 JUL",time:"17:00",venue:"Miami",home:loser(101),away:loser(102)},
 {id:"104",stage:"final",date:"19 JUL",time:"15:00",venue:"Nueva York/Nueva Jersey",home:winner(101),away:winner(102)}
 ];
@@ -80,7 +80,9 @@ const predictions:Record<string,Record<string,Prediction>>={
 "97":{israel:[2,2,"away"],isra:[1,1,"away"],alfre:[3,2],liz:[2,2,"away"],rebeca:[2,1],alfredito:[3,1],nuria:[3,2],pedro:[3,2],rebe:[0,2]},
 "98":{israel:[2,1],isra:[1,2],alfre:[2,1],liz:[2,1],rebeca:[2,1],alfredito:[2,0],nuria:[2,1],pedro:[3,2],rebe:[1,2]},
 "99":{israel:[1,2],isra:[1,2],alfre:[1,0],liz:[2,1],rebeca:[3,2],alfredito:[1,3],nuria:[2,3],pedro:[2,1],rebe:[2,1]},
-"100":{israel:[2,0],isra:[1,1,"away"],alfre:[2,2,"away"],liz:[2,1],rebeca:[2,1],alfredito:[3,2],nuria:[4,0],pedro:[2,3],rebe:[0,1]}
+"100":{israel:[2,0],isra:[1,1,"away"],alfre:[2,2,"away"],liz:[2,1],rebeca:[2,1],alfredito:[3,2],nuria:[4,0],pedro:[2,3],rebe:[0,1]},
+"101":{israel:[1,2],isra:[3,2],alfre:[2,2,"home"],liz:[2,1],rebeca:[2,1],alfredito:[2,1],nuria:[1,2],pedro:[3,2],rebe:[2,0]},
+"102":{israel:[3,2],isra:[3,2],alfre:[1,2],liz:[3,2],rebeca:[3,2],alfredito:[1,3],nuria:[3,2],pedro:[2,1],rebe:[3,1]}
 };
 
 export function getResult(match:Match,results:ResultMap={}){return results[match.id]??match.baseResult??null}
