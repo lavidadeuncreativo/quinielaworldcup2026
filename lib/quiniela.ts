@@ -58,7 +58,7 @@ export const matches:Match[]=[
 {id:"100",stage:"qf",date:"11 JUL",time:"15:00",venue:"Kansas City",home:winner(95),away:winner(96),baseResult:{home:3,away:1,final:true,completedAt:"2026-07-12T03:00:00Z"}},
 {id:"101",stage:"sf",date:"14 JUL",time:"15:00",venue:"Dallas",home:winner(97),away:winner(98),baseResult:{home:0,away:2,final:true,completedAt:"2026-07-14T23:00:00Z"}},
 {id:"102",stage:"sf",date:"15 JUL",time:"15:00",venue:"Atlanta",home:winner(99),away:winner(100),baseResult:{home:1,away:2,final:true,completedAt:"2026-07-15T23:00:00Z"}},
-{id:"103",stage:"third",date:"18 JUL",time:"17:00",venue:"Miami",home:loser(101),away:loser(102)},
+{id:"103",stage:"third",date:"18 JUL",time:"17:00",venue:"Miami",home:loser(101),away:loser(102),baseResult:{home:4,away:6,final:true,completedAt:"2026-07-19T02:00:00Z"}},
 {id:"104",stage:"final",date:"19 JUL",time:"15:00",venue:"Nueva York/Nueva Jersey",home:winner(101),away:winner(102)}
 ];
 
