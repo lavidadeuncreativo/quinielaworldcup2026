@@ -82,7 +82,9 @@ const predictions:Record<string,Record<string,Prediction>>={
 "99":{israel:[1,2],isra:[1,2],alfre:[1,0],liz:[2,1],rebeca:[3,2],alfredito:[1,3],nuria:[2,3],pedro:[2,1],rebe:[2,1]},
 "100":{israel:[2,0],isra:[1,1,"away"],alfre:[2,2,"away"],liz:[2,1],rebeca:[2,1],alfredito:[3,2],nuria:[4,0],pedro:[2,3],rebe:[0,1]},
 "101":{israel:[1,2],isra:[3,2],alfre:[2,2,"home"],liz:[2,1],rebeca:[2,1],alfredito:[2,1],nuria:[1,2],pedro:[3,2],rebe:[2,0]},
-"102":{israel:[3,2],isra:[3,2],alfre:[1,2],liz:[3,2],rebeca:[3,2],alfredito:[1,3],nuria:[3,2],pedro:[2,1],rebe:[3,1]}
+"102":{israel:[3,2],isra:[3,2],alfre:[1,2],liz:[3,2],rebeca:[3,2],alfredito:[1,3],nuria:[3,2],pedro:[2,1],rebe:[3,1]},
+"103":{israel:[2,2,"home"],isra:[1,1,"away"],alfre:[2,2,"away"],liz:null,rebeca:[2,1],alfredito:[2,3],nuria:[2,2,"away"],pedro:[2,1],rebe:[1,3]},
+"104":{israel:[2,3],isra:[3,2],alfre:[2,2,"away"],liz:null,rebeca:[3,2],alfredito:[2,0],nuria:[2,1],pedro:[3,2],rebe:[1,2]}
 };
 
 export function getResult(match:Match,results:ResultMap={}){return results[match.id]??match.baseResult??null}
